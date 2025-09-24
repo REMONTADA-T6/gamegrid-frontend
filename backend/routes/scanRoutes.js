@@ -52,4 +52,20 @@ router.get("/leaderboard", async (req, res) => {
   }
 });
 
+
+
+// DELETE endpoint to reset all scans
+router.delete("/reset", async (req, res) => {
+  try {
+    const result = await Scan.deleteMany({}); // deletes all documents but keeps collection
+    res.status(200).json({
+      message: "All scans deleted successfully",
+      deletedCount: result.deletedCount,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
 export default router;
